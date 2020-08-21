@@ -2,10 +2,13 @@ package com.example.android.mynewsapp
 
 import android.view.LayoutInflater
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.BindingAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
+import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
 import com.example.android.mynewsapp.databinding.NewsItemBinding
 
 class AdapterNewsFeed(private val onClickListener: OnClickListener) :
@@ -37,11 +40,17 @@ class AdapterNewsFeed(private val onClickListener: OnClickListener) :
 
     override fun onBindViewHolder(holder: FeedItemViewHolder, position: Int) {
 
-        val definitionItem = getItem(position)
+        val feedItem = getItem(position)
         holder.itemView.setOnClickListener {
-            onClickListener.onClick(definitionItem)
+            onClickListener.onClick(feedItem)
         }
-        holder.bind(definitionItem)    }
+        val image =
+            holder.itemView.findViewById<ImageView>(R.id.image)
+        Glide.with(image.context)
+            .load(feedItem.urlToImage).transition(DrawableTransitionOptions.withCrossFade())
+            .into(image);
+
+        holder.bind(feedItem)    }
 
 
     class OnClickListener(val clickListener: (dailyArticle: DailyArticle) -> Unit) {
