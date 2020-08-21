@@ -7,29 +7,32 @@
         <variable name = "viewModel" type="com.example.android.mynewsapp.DailyNewsViewModel"/>
     </data>
 
-    <ScrollView
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        tools:context=".FragmentNews">
+        android:paddingTop="@dimen/screen_padding"
+        android:paddingStart="@dimen/screen_padding"
+        android:paddingEnd="@dimen/screen_padding"
+        tools:context=".ActivityMain">
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/definition_list"
+            android:id="@+id/news_feed"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:clipToPadding="false"
             android:divider="@android:color/black"
             android:dividerHeight="@dimen/divider_height"
             android:padding="6dp"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/textView5"
-            app:listData="@{viewModel.dailyNewsList}"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:listData="@{viewModel.dailyNews}"
             app:spanCount="2"
             tools:itemCount="16"
             tools:listitem="@layout/news_item" />
 
-    </ScrollView>
 
+    </androidx.constraintlayout.widget.ConstraintLayout>
 
 </layout>
