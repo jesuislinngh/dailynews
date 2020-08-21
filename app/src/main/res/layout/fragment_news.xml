@@ -3,9 +3,8 @@
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
     <data>
-        <variable name = "viewModel" type=""/>
+        <variable name = "viewModel" type="com.example.android.mynewsapp.DailyNewsViewModel"/>
     </data>
 
     <ScrollView
@@ -13,8 +12,24 @@
         android:layout_height="match_parent"
         tools:context=".FragmentNews">
 
-    </ScrollView>
+        <androidx.recyclerview.widget.RecyclerView
+            android:id="@+id/definition_list"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:clipToPadding="false"
+            android:divider="@android:color/black"
+            android:dividerHeight="@dimen/divider_height"
+            android:padding="6dp"
+            app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/textView5"
+            app:listData="@{viewModel.dailyNewsList}"
+            app:spanCount="2"
+            tools:itemCount="16"
+            tools:listitem="@layout/news_item" />
 
+    </ScrollView>
 
 
 </layout>
