@@ -2,10 +2,13 @@ package com.example.android.mynewsapp
 
 import android.app.Application
 import androidx.lifecycle.*
+import kotlinx.coroutines.launch
 
 class DailyNewsViewModel(application: Application) : AndroidViewModel(application) {
 
-    
+
+    private var respository: NewsRepository = NewsRepository()
+
     // Internally, we use a MutableLiveData, because we will be updating the List of MarsProperty
     // with new values
     private val _dailyNews = MutableLiveData<List<DailyArticle>>()
@@ -20,6 +23,16 @@ class DailyNewsViewModel(application: Application) : AndroidViewModel(applicatio
          * Factory for creating [DailyNewsViewModel]
          */
         val FACTORY = singleArgViewModelFactory(::DailyNewsViewModel)
+    }
+
+    init {
+        getDailyNews()
+    }
+
+    private fun getDailyNews() {
+        viewModelScope.launch {
+            _dailyNews.value = respository.getDailyFeed()
+        }
     }
     
 }
