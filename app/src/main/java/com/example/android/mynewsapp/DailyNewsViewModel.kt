@@ -1,4 +1,8 @@
 package com.example.android.mynewsapp
 
-class DailyNewsViewModel {
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
+
+class DailyNewsViewModel(application: Application) : AndroidViewModel(application){
+    
 }
