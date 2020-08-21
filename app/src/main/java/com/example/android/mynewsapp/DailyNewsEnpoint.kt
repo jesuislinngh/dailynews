@@ -29,7 +29,7 @@ private val retrofit = Retrofit.Builder()
 interface DailyNewsApi {
 
     @GET("top-headlines")
-    fun getDailyNews(
+    fun getDailyNewsAsync(
         @Query("country") country: String,
         @Query("apiKey") apiKey: String = API_KEY
     ): Deferred<DailyNewsResponse>
@@ -50,13 +50,13 @@ data class DailyNewsResponse(
 
 @Parcelize
 data class DailyArticle(
-    val author: String,
+    val author: String?,
     val title: String,
-    val description: String,
+    val description: String?,
     val url: String,
-    val urlToImage: String,
+    val urlToImage: String?,
     val publishedAt: String,
-    val content: String
+    val content: String?
 ) : Parcelable
 
 @Parcelize
