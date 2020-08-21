@@ -50,7 +50,6 @@ data class DailyNewsResponse(
 
 @Parcelize
 data class DailyArticle(
-    val source: NewsSource,
     val author: String,
     val title: String,
     val description: String,
