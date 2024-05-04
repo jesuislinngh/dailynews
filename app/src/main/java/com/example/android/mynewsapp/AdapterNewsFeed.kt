@@ -4,12 +4,14 @@ import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.ImageView
 import androidx.databinding.BindingAdapter
-import androidx.recyclerview.widget.DiffUtil
+import androidx.recyclerview.widget.DiffUtil.*
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import com.bumptech.glide.MemoryCategory
 import com.bumptech.glide.load.resource.drawable.DrawableTransitionOptions
-import com.example.android.mynewsapp.databinding.NewsItemBinding
+import com.example.android.myapplication.R
+import com.example.android.myapplication.databinding.NewsItemBinding
 
 class AdapterNewsFeed(private val onClickListener: OnClickListener) :
     ListAdapter<DailyArticle, AdapterNewsFeed.FeedItemViewHolder>(CallBack) {
@@ -24,7 +26,7 @@ class AdapterNewsFeed(private val onClickListener: OnClickListener) :
         }
     }
 
-    companion object CallBack : DiffUtil.ItemCallback<DailyArticle>() {
+    companion object CallBack : ItemCallback<DailyArticle>() {
         override fun areItemsTheSame(oldItem: DailyArticle, newItem: DailyArticle): Boolean {
             return oldItem === newItem
         }
@@ -44,13 +46,23 @@ class AdapterNewsFeed(private val onClickListener: OnClickListener) :
         holder.itemView.setOnClickListener {
             onClickListener.onClick(feedItem)
         }
+
+        // get a reference to the image view where we'll be loading an image onto
         val image =
             holder.itemView.findViewById<ImageView>(R.id.image)
-        Glide.with(image.context)
-            .load(feedItem.urlToImage).transition(DrawableTransitionOptions.withCrossFade())
-            .into(image);
 
-        holder.bind(feedItem)    }
+        // pass the image view's context to the Glide's library with method to specify it's context
+        Glide.get(image.context).setMemoryCategory(MemoryCategory.HIGH)
+        Glide.with(image.context)
+                // pass the image remote url
+            .load(feedItem.urlToImage)
+                // add the type of transition to display when loading
+            .transition(DrawableTransitionOptions.withCrossFade())
+            // and finally the reference to the image view we are going to be loading it to.
+            .into(image)
+
+        holder.bind(feedItem)
+    }
 
 
     class OnClickListener(val clickListener: (dailyArticle: DailyArticle) -> Unit) {

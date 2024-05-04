@@ -2,6 +2,7 @@ package com.example.android.mynewsapp
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import com.example.android.myapplication.R
 
 class MainActivity : AppCompatActivity() {
 
@@ -9,7 +10,5 @@ class MainActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
     }
-
-
 
 }
